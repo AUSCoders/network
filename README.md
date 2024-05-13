@@ -16,16 +16,17 @@ graph TD;
 ## Django boshlang'ich Tushncha va diogrammalar
 ![image](https://github.com/AUSCoders/network/assets/144318530/62e24f8b-91d1-4a33-aee5-5c847d825c55)
 
-```
-
-</details>
-
-```
 
 <details>
 
 <summary>Profile models</summary>
+
+
 ```python
+
+
+
+
 import string
 import random
 from typing import Iterable
@@ -87,7 +88,7 @@ class Profile(models.Model):
         self.slug=to_slug
         return super().save(*args, **kwargs)
 
-#Relation SHip model foydalanovchi obunalari va obunachilarini ushlab turovchi model
+# Relation SHip model foydalanovchi obunalari va obunachilarini ushlab turovchi model
 STATUS_CHOICES=(
     ("send", "send"),
     ("accepted", "accepted")
@@ -108,4 +109,76 @@ class RelationShip(models.Model):
    
 ```
 
+</details>
+
+
+
+<details>
+
+<summary>Post , Commit va Like</summary>
+
+
+```python
+
+
+from django.db import models
+from users.models import Profile
+from django.core.validators import FileExtensionValidator
+
+# Create your models here.
+
+class Post(models.Model):
+    title=models.CharField(max_length=250)
+    content=models.TextField()
+    image=models.ImageField(upload_to="post/",  validators=[FileExtensionValidator(allowed_extensions=['png','jpg','jpeg'])])
+    liked=models.ManyToManyField(Profile, blank=True, related_name="liked")
+    author=models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+    post_updated=models.DateTimeField(auto_now=True)
+    post_created=models.DateField(auto_now_add=True)
+    
+    
+    def __str__(self):
+        return self.title
+    
+    # get liked cound num 
+    def get_liked(self):
+        return self.liked.all().count()
+    # get commit all count number 
+    def get_commit_number(self):
+        return self.comment_set.all().count()
+    
+    class Meta:
+        ordering=['post_updated', "post_created"]
+        
+        
+    
+class Comment(models.Model):
+    user=models.ForeignKey(Profile, on_delete=models.CASCADE)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE)
+    body=models.TextField(max_length=500)
+    updated=models.DateTimeField(auto_now=True)
+    created=models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return str(self.pk)
+
+LIKE_CHOICES=(
+    ('Like', 'Like'),
+    ('Unlike', 'Unlike')
+)
+class Like(models.Model):
+    user=models.ForeignKey(Profile, on_delete=models.CASCADE)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE)
+    value=models.CharField(choices=LIKE_CHOICES, max_length=8)
+    updated=models.DateTimeField(auto_now=True)
+    created=models.DateField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f"{self.user}--{self.post}-{self.value}"
+
+
+
+```
+
+</details>
 </details>
