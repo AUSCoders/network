@@ -18,8 +18,11 @@ graph TD;
 
 ### User , Profile, RealitionSHip, Post, Commit va Liked models 
 <summary>DB DIOGRAMMALAR</summary>
+1-Model birinchi versiya
+
 ![image](https://github.com/AUSCoders/network/assets/144318530/62e24f8b-91d1-4a33-aee5-5c847d825c55)
 
+2-Model ikkinchi Versiya
 
 ![image](https://github.com/AUSCoders/network/assets/144318530/99b39394-50d7-4b71-a05e-7403e196ee03)
 
