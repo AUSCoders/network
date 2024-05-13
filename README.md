@@ -1,5 +1,13 @@
 # network
 
+Django Asosiy Ishlash Siximasi
+```mermaid
+graph TD;
+    Urls-->Views;
+    Views-->Models;
+    Views-->Templates;
+    
+```
 
 <details>
 
@@ -42,9 +50,10 @@ class Profile(models.Model):
         return f"{self.last_name}-{self.first_name}-{self.created}"
     def get_posts_number(self):
         return self.post_set.all().count()
-    
+    #foydalanovchi Postlari
     def get_authors_posts(self):
         return self.post_set.all()
+    
     def get_likes_number(self):
         likes=self.like_set.all()
         total_like=0
@@ -72,7 +81,7 @@ class Profile(models.Model):
         self.slug=to_slug
         return super().save(*args, **kwargs)
 
-
+#Relation SHip model foydalanovchi obunalari va obunachilarini ushlab turovchi model
 STATUS_CHOICES=(
     ("send", "send"),
     ("accepted", "accepted")
