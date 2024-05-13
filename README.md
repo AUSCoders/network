@@ -16,9 +16,15 @@ graph TD;
 ## Django boshlang'ich Tushncha va diogrammalar
 ![image](https://github.com/AUSCoders/network/assets/144318530/62e24f8b-91d1-4a33-aee5-5c847d825c55)
 
+```
 
-Profile models
+</details>
 
+```
+
+<details>
+
+<summary>Profile models</summary>
 ```python
 import string
 import random
