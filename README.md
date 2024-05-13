@@ -14,8 +14,16 @@ graph TD;
 <summary>DB DIOGRAMMALAR</summary>
 
 ## Django boshlang'ich Tushncha va diogrammalar
+<details>
+
+### User , Profile, RealitionSHip, Post, Commit va Liked models 
+<summary>DB DIOGRAMMALAR</summary>
 ![image](https://github.com/AUSCoders/network/assets/144318530/62e24f8b-91d1-4a33-aee5-5c847d825c55)
 
+
+![image](https://github.com/AUSCoders/network/assets/144318530/99b39394-50d7-4b71-a05e-7403e196ee03)
+
+</details>
 
 <details>
 
