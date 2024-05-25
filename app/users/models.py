@@ -1,12 +1,9 @@
 import string
 import random
-from typing import Iterable
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from .utils import get_random_code
-# Create your models here.
-
 
 def rand_slug():
     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(6))
@@ -26,8 +23,26 @@ class Profile(models.Model):
     
     def __str__(self):
         return f"{self.last_name}-{self.first_name}-{self.created}"
+    def get_posts_number(self):
+        return self.post_set.all().count()
     
-    def save(self, *args, **kwargs) -> None:
+    def get_authors_posts(self):
+        return self.post_set.all()
+    def get_likes_number(self):
+        likes=self.like_set.all()
+        total_like=0
+        for item in likes:
+            if item.value=="Like":
+                total_like+=1
+        return total_like
+    def get_likes_recieved_number(self):
+        post=self.post_set.all()
+        total_like=0
+        for item in post:
+            total_like+=item.liked.all().count()
+        return  total_like
+                
+    def save(self, *args, **kwargs):
         ew=None
         if self.first_name and self.first_name :
             to_slug=slugify(str(self.last_name).lower()+""+str(self.first_name)+""+str(get_random_code()))

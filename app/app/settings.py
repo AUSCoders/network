@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #myapp
     'users.apps.UsersConfig',
+    'posts.apps.PostsConfig',
+    "commit.apps.CommitConfig",
 ]
 
 MIDDLEWARE = [
