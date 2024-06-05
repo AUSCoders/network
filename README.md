@@ -193,3 +193,169 @@ class Like(models.Model):
 
 </details>
 </details>
+
+1-qadam
+```bash
+mkdir Network && cd Network
+```
+```bash
+python3 -m venv myenvs
+```
+```bash
+source myenvs/bin/activate
+```
+<a href="https://www.djangoproject.com/download/">Djangoni O'rnatish-></a>
+```bash
+pip install django
+```
+<a href="https://www.django-rest-framework.org/#installation">Django Rest Framework O'rnatish-></a>
+```bash
+pip install djangorestframework
+```
+<a href="https://pypi.org/project/django-dotenv/">Django Dotenvni O'rnatish-></a>
+```bash
+pip install django-dotenv
+```
+
+
+2-qadam
+app nomli loyiha yaratamiz va ichiga kiramiz
+```bash
+django-admin startproject app && cd app
+```
+loyihani ishga tushirish
+```bash
+python3 manage.py runserver
+```
+Endi bizning loyihamiz ichida bir nechata ilovalar bulishi mumkin biz yangi **posts**, **comints** va **users** nomli ilovalar yaralamiz va settings.py ga qo'shamiz
+
+```bash
+python3 manage.py startapp posts
+```
+```bash
+
+python3 manage.py startapp comints
+```
+```bash
+python3 manage.py startapp users
+```
+
+Buni INSTALL_APPS ni tagidan yozib qo'yamiz
+```python
+INSTALL_APPS += [
+    'users.apps.UsersConfig',
+    'comint.apps.ComintConfig',
+    'posts.apps.PostsConfig',
+]
+```
+Yangi templates fileni yaratib install TEMPLATES ga ko'rsatib qo'yamiz
+```python
+BASE_DIR / 'templates'
+```
+STATIC_ROOT, STATICFILES_DIRS, MEDIA_ROOT vs MEDIA_URL larni settings.py ga qo'shaman
+
+```python
+STATIC_URL='static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS  = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+# media root va media url qo'shamiz
+MEDIA_URL = 'media'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+```
+urls.py ga MEDIA VA STATIC FILELARNI KO'RSATAMIZ
+
+
+
+```python
+from django.urls import path, include
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path("myadmin/", include(admin.site.templates)),
+    path("", include('posts.urls')),
+    path("comint/", include('comint.urls')),
+    path("users/", include('users.urls')),
+]
+
+if setting.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, doocument_root = settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, doocument_root = settings.STATIC_ROOT)
+
+```
+
+urls.py nomli users, comint va posts ichidan oching.............
+
+### <a href="https://tailwindcss.com/docs/installation/using-postcss">tailwind css</a> ni djangoga o'rnatamiz 
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+```bash
+npx tailwindcss init
+```
+**tailwind.config.js** ga qo'shing
+
+```node
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/templates/**/*.html',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+Ildiz katalogingizda statik nomli katalog yarating. Ushbu katalog ichida src nomli boshqa katalog yarating va uning ichida input.css nomli fayl yarating. Input.css-ga quyidagi kodni qo'shing:
+
+>static>src>input.css
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+```
+Package.json faylingizni ildiz katalogida toping va devDependencies obyektining yuqori qismiga quyidagi qatorni qo'shing:
+```js
+"scripts": {
+    "dev": "npx tailwindcss -i ./static/src/input.css -o ./static/src/styles.css --watch"
+  },
+
+...
+
+```
+Agar Django loyihangiz ustida ishlayotganingizda sahifani qo‘lda qayta yuklash zerikarli bo‘lsa, server kodingiz, shablonlaringiz, kontentingiz yoki sinflaringiz o‘zgarganda sahifani avtomatik qayta yuklashni sozlashingiz mumkin. Buni qanday qilish kerak:
+
+```bash
+pip install django-browser-reload
+```
+setting.py
+```python
+INSTALLED_APPS = [
+    ...,
+    "django_browser_reload",
+    ...,
+]
+MIDDLEWARE = [
+    # ...
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # ...
+]
+
+```
+urls.py
+```python
+from django.urls import include, path
+
+urlpatterns = [
+    ...,
+    path("__reload__/", include("django_browser_reload.urls")),
+]
+
+```
+
