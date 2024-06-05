@@ -352,10 +352,53 @@ urls.py
 ```python
 from django.urls import include, path
 
+
+
+
 urlpatterns = [
     ...,
     path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 ```
+
+
+## flowbite ni projectga o'rnatamiz
+```bash
+npm install flowbite
+```
+
+**tailwind.config.js** ga plugins joyga  require('flowbite/plugin') qo'shing
+```js 
+module.exports = {
+
+    plugins: [
+        require('flowbite/plugin')
+    ]
+
+}
+```
+va shu holatga kelishi kerak
+```js
+module.exports = {
+  content: [
+      './templates/**/*.html',
+      './node_modules/flowbite/**/*.js'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require('flowbite/plugin')
+],
+}
+```
+
+va js ni 
+
+_base.html ga ulang
+```js
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+```
+yoki
 
