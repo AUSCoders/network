@@ -35,7 +35,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt ./requirements.txt
+COPY requirements.txt ./app/requirements.txt
 
 # copy the project code into the container's working directory
 COPY ./app /app
