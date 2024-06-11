@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create the mini vm's code directory
-RUN mkdir -p /code
+RUN mkdir -p /app
 
 # Set the working directory to that same code directory
 WORKDIR /code
@@ -38,7 +38,7 @@ WORKDIR /code
 COPY requirements.txt /tmp/requirements.txt
 
 # copy the project code into the container's working directory
-COPY ./src /code
+COPY ./app /app
 
 # Install the Python project requirements
 RUN pip install -r /tmp/requirements.txt
