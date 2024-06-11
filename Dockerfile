@@ -35,13 +35,13 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt ./requirements.txt
+COPY requirements.txt /tmp/requirements.txt
 
 # copy the project code into the container's working directory
 COPY ./app /app
 
 # Install the Python project requirements
-RUN pip install -r ./requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 # database isn't available during build
 # run any other commands that do not need the database
